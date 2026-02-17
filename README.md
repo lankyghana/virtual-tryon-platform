@@ -258,9 +258,5 @@ Proprietary - All rights reserved
 ## Support
 
 For issues and questions:
-- GitHub Issues: [repository-url]
-- Email: support@yourapp.com
+- Email: danielkwadwotakyi@gmail.com
 
-## Contributors
-
-Built with ❤️ by [Your Name]
