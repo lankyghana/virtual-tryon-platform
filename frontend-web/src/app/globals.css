@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design Tokens ────────────────────────────────────────── */
+:root {
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', 'Courier New', monospace;
+
+  --bg:           #faf7f2;
+  --bg-card:      #ffffff;
+  --bg-muted:     #f3efea;
+  --border:       #e6ddd3;
+  --border-dark:  #d4c7b8;
+
+  --text-primary:  #231d19;
+  --text-secondary:#574337;
+  --text-muted:    #9a8c7c;
+
+  --accent:       #c45c2a;
+  --accent-light: #e8956b;
+  --accent-dark:  #9c3f17;
+
+  --gold:         #c9972b;
+  --gold-light:   #f0c060;
+
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-xl:  32px;
+
+  --shadow-sm:  0 1px 3px rgba(35,29,25,0.08), 0 1px 2px rgba(35,29,25,0.06);
+  --shadow-md:  0 4px 16px rgba(35,29,25,0.10), 0 2px 4px rgba(35,29,25,0.06);
+  --shadow-lg:  0 12px 40px rgba(35,29,25,0.14), 0 4px 8px rgba(35,29,25,0.08);
+  --shadow-xl:  0 24px 64px rgba(35,29,25,0.18), 0 8px 16px rgba(35,29,25,0.10);
+}
+
+/* ─── Base ──────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ─── Grain overlay (applied on body via ::before) ────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ─── Typography ────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 400; }
+h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 400; }
+h3 { font-size: clamp(1.3rem, 2vw, 1.8rem); font-weight: 500; }
+h4 { font-size: 1.2rem; font-weight: 500; }
+
+/* ─── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: var(--bg-muted); }
+::-webkit-scrollbar-thumb  { background: var(--border-dark); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ─── Selection ─────────────────────────────────────────────── */
+::selection {
+  background-color: var(--accent);
+  color: #fff;
+}
+
+/* ─── Components ────────────────────────────────────────────── */
+@layer components {
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full
+           font-medium text-sm text-white transition-all duration-200
+           bg-ink-900 hover:bg-ink-800 active:scale-[0.98]
+           shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full
+           font-medium text-sm transition-all duration-200
+           text-ink-700 hover:bg-ink-100 active:scale-[0.98]
+           border border-transparent hover:border-ink-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full
+           font-medium text-sm text-white transition-all duration-200
+           active:scale-[0.98] shadow-md hover:shadow-lg
+           disabled:opacity-50 disabled:cursor-not-allowed;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  }
+  .btn-accent:hover {
+    background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 100%);
+  }
+
+  .card {
+    @apply bg-white rounded-2xl border border-sand-200 shadow-sm;
+  }
+
+  .card-hover {
+    @apply card transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-sand-300 bg-white
+           text-ink-900 placeholder-ink-300 text-sm
+           focus:outline-none focus:ring-2 focus:ring-ink-900/20 focus:border-ink-400
+           transition-colors duration-200;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-free {
+    @apply badge bg-sand-100 text-sand-700 border border-sand-200;
+  }
+
+  .badge-pro {
+    @apply badge text-amber-700 border border-amber-200;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  }
+
+  .upload-zone {
+    @apply relative flex flex-col items-center justify-center rounded-2xl
+           border-2 border-dashed border-sand-300 bg-sand-50
+           cursor-pointer transition-all duration-200
+           hover:border-ink-400 hover:bg-sand-100;
+  }
+  .upload-zone.active {
+    @apply border-[var(--accent)] border-solid bg-orange-50;
+  }
+
+  .progress-track {
+    @apply h-1.5 w-full rounded-full bg-sand-200 overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full rounded-full bg-ink-900 transition-all duration-500;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-dark) 100%);
+  }
+
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--bg-muted) 25%,
+      var(--border) 50%,
+      var(--bg-muted) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s linear infinite;
+  }
+
+  .stat-pill {
+    @apply flex items-center gap-2 px-4 py-2 rounded-full bg-white
+           border border-sand-200 text-sm text-ink-700 shadow-sm;
+  }
+}
+
+/* ─── Utility animations ────────────────────────────────────── */
+.animate-fade-up {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-fade-in {
+  animation: fadeIn 0.4s ease both;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%       { transform: scale(1.4); opacity: 0.7; }
+}
+
+.dot-pulse {
+  animation: pulseDot 1.4s ease-in-out infinite;
+}
+.dot-pulse.delay-1 { animation-delay: 0.2s; }
+.dot-pulse.delay-2 { animation-delay: 0.4s; }
+
+/* ─── Decorative ────────────────────────────────────────────── */
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.divider-ornament::before,
+.divider-ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ─── Google button ─────────────────────────────────────────── */
+.google-btn {
+  @apply relative flex items-center justify-center gap-3 w-full py-3.5 px-6
+         rounded-xl border border-sand-300 bg-white text-ink-800 font-medium text-sm
+         transition-all duration-200 hover:bg-sand-50 hover:border-sand-400
+         hover:shadow-md active:scale-[0.98] cursor-pointer;
+}

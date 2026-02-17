@@ -1,0 +1,54 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+.next/
+dist/
+build/
+
+# Logs
+*.log
+
+# Env files (keep templates)
+.env
+.env.local
+.env.*.local
+
+# Runtime / temp
+tmp/
+*.tmp
+*.pid
+tmp_repro*.py
+tmp_verify_tryon.py
+
+# Local storage and generated outputs
+backend/local_storage/
+backend/gpu_inference/models/
+public/
+favicon.ico
+
+# Flutter/Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+
+# Android build outputs
+frontend-mobile/android/.gradle/
+frontend-mobile/build/
+frontend-mobile/android/app/build/
